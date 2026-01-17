@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createCollection } from './api';
 import toast, { Toaster } from 'react-hot-toast';
@@ -21,6 +21,8 @@ export default function HomePage() {
     organizer_account_number: '',
     organizer_account_name: '',
   });
+  const [collectionType , setCollectionType] = useState(1)
+  const type = useRef()
 
   const handleChange = (e) => {
     setFormData({
@@ -67,9 +69,9 @@ export default function HomePage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-              <Wallet className="w-6 h-6 text-white" />
+              <Wallet className="w-6 h-6 text-white" /> <i className="fas fa-wallet sz-30 color-black"></i>
             </div>
-            <span className="text-2xl font-bold text-gray-900">Kontribute</span>
+            <span className="text-2xl font-bold text-gray-900">Kontribute </span>
           </div>
         </div>
       </header>
@@ -152,6 +154,37 @@ export default function HomePage() {
                   />
                 </div>
 
+                <div className="">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2"> Collection Type </label>
+                    <select ref={type} onChange={()=>setCollectionType(type.current.value)} className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">
+                      <option value={1} > Public Collection </option>
+                      <option value={2} > Amount Per Person </option>
+                    </select>
+                  </div>
+                </div>
+
+                 {collectionType == 3 &&
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Target Amount (₦) *
+                    </label>
+                    <input
+                      type="number"
+                      name="amount_per_person"
+                      value={formData.amount_per_person}
+                      onChange={handleChange}
+                      placeholder="5000"
+                      min="100"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                </div>
+              }
+
+                {collectionType == 3 &&
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -171,7 +204,7 @@ export default function HomePage() {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Number of People *
+                      Number of People
                     </label>
                     <input
                       type="number"
@@ -181,10 +214,11 @@ export default function HomePage() {
                       placeholder="10"
                       min="2"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      required
                     />
+                    <span class="text-muted text-sm font-small text-gray-500">(Leave Blank if the Number of people is indefinite)</span>
                   </div>
                 </div>
+              }
 
                 {/* Total Display */}
                 {formData.amount_per_person && formData.number_of_people && (
@@ -303,7 +337,7 @@ export default function HomePage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary-600 text-white py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                className="w-full bg-primary-700 text-white color-bg-p py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 {loading ? (
                   <>

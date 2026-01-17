@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getCollection, makeContribution } from '@/lib/api';
+import { getCollection, makeContribution } from './api';
 import toast, { Toaster } from 'react-hot-toast';
 import { Loader2, Users, Target, Copy, CheckCircle, Clock } from 'lucide-react';
 
@@ -321,17 +321,17 @@ export default function CollectionPage() {
 >
 {submitting ? (
 <>
-
-Processing...
-</>
+<Loader2 className="w-5 h-5 animate-spin" />
+<span> Processing... </span>
+</ >
 ) : (
-Continue to Payment
+<span>Continue to Payment</span>
 )}
 </button>
-
-
+</form>
+</div>
 )}
-
-
+</div>
+</div>
 );
 }
