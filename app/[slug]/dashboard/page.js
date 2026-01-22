@@ -1,8 +1,7 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getDashboard, confirmPayment, sendReminders } from '@/lib/api';
+import { getDashboard, confirmPayment, sendReminders } from '../../api';
 import toast, { Toaster } from 'react-hot-toast';
 import { 
   Loader2, 
@@ -127,8 +126,8 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-12 h-12 animate-spin text-primary-600" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-white to-cyan-50">
+        <Loader2 className="w-12 h-12 animate-spin text-teal-600" />
       </div>
     );
   }
@@ -141,7 +140,7 @@ export default function DashboardPage() {
   const progressPercentage = stats.completion_percentage || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-100">
       <Toaster position="top-right" />
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -149,45 +148,48 @@ export default function DashboardPage() {
         <div className="mb-8">
           <button
             onClick={() => router.push(`/${slug}`)}
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="flex items-center space-x-2 text-teal-700 hover:text-teal-900 mb-4 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Back to Collection</span>
           </button>
 
-          <div className="flex justify-between items-start">
+          <div className="flx justify-between items-start">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">{collection.title}</h1>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-2">
+                {collection.title}
+              </h1>
               <p className="text-gray-600">Organizer Dashboard</p>
             </div>
-            
+            <div class="py-3">
             <div className="flex space-x-3">
               <button
                 onClick={copyCollectionLink}
-                className="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="flex items-center space-x-2 px-4 py-2 bg-white border-2 border-teal-200 rounded-lg hover:bg-teal-50 hover:border-teal-300 transition-all"
               >
-                <Copy className="w-4 h-4" />
-                <span>Copy Link</span>
+                <Copy className="w-4 h-4 text-teal-600" />
+                <span className="text-teal-700">Copy Link</span>
               </button>
               <button
                 onClick={downloadCSV}
-                className="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="flex items-center space-x-2 px-4 py-2 bg-white border-2 border-teal-200 rounded-lg hover:bg-teal-50 hover:border-teal-300 transition-all"
               >
-                <Download className="w-4 h-4" />
-                <span>Export CSV</span>
+                <Download className="w-4 h-4 text-teal-600" />
+                <span className="text-teal-700">Export CSV</span>
               </button>
+            </div>
             </div>
           </div>
         </div>
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-white rounded-xl shadow-md border border-teal-100 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600">Total Collected</span>
-              <TrendingUp className="w-5 h-5 text-green-600" />
+              <span className="text-gray-600 font-medium">Total Collected</span>
+              <TrendingUp className="w-5 h-5 text-teal-600" />
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-teal-600">
               ₦{stats.total_collected?.toLocaleString()}
             </p>
             <p className="text-sm text-gray-500 mt-1">
@@ -195,10 +197,10 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-white rounded-xl shadow-md border border-teal-100 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600">Paid</span>
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <span className="text-gray-600 font-medium">Paid</span>
+              <CheckCircle className="w-5 h-5 text-emerald-600" />
             </div>
             <p className="text-3xl font-bold text-gray-900">{stats.paid_count}</p>
             <p className="text-sm text-gray-500 mt-1">
@@ -206,23 +208,23 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-white rounded-xl shadow-md border border-teal-100 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600">Pending</span>
-              <Clock className="w-5 h-5 text-yellow-600" />
+              <span className="text-gray-600 font-medium">Pending</span>
+              <Clock className="w-5 h-5 text-amber-600" />
             </div>
             <p className="text-3xl font-bold text-gray-900">{stats.pending_count}</p>
             <p className="text-sm text-gray-500 mt-1">awaiting payment</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600">Progress</span>
+              <span className="text-teal-50 font-medium">Progress</span>
             </div>
-            <p className="text-3xl font-bold text-primary-600">{progressPercentage}%</p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <p className="text-3xl font-bold text-white">{progressPercentage}%</p>
+            <div className="w-full bg-teal-300/30 rounded-full h-2 mt-2">
               <div
-                className="bg-primary-600 h-2 rounded-full transition-all"
+                className="bg-white h-2 rounded-full transition-all shadow-sm"
                 style={{ width: `${Math.min(progressPercentage, 100)}%` }}
               />
             </div>
@@ -231,7 +233,7 @@ export default function DashboardPage() {
 
         {/* Pending Contributors */}
         {contributors.pending.length > 0 && (
-          <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <div className="bg-white rounded-xl shadow-md border border-teal-100 p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-gray-900">
                 Pending Payments ({contributors.pending.length})
@@ -239,7 +241,7 @@ export default function DashboardPage() {
               <button
                 onClick={handleSendReminders}
                 disabled={sendingReminders}
-                className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
+                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-lg hover:from-teal-700 hover:to-cyan-700 disabled:opacity-50 transition-all shadow-sm"
               >
                 {sendingReminders ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -254,7 +256,7 @@ export default function DashboardPage() {
               {contributors.pending.map((contributor) => (
                 <div
                   key={contributor.id}
-                  className="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg"
+                  className="flex items-center justify-between p-4 bg-amber-50 border-2 border-amber-200 rounded-lg hover:border-amber-300 transition-colors"
                 >
                   <div className="flex-1">
                     <p className="font-semibold text-gray-900">{contributor.name}</p>
@@ -274,7 +276,7 @@ export default function DashboardPage() {
                   <button
                     onClick={() => handleConfirmPayment(contributor.id)}
                     disabled={confirmingPayment === contributor.id}
-                    className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 disabled:opacity-50 transition-all shadow-sm"
                   >
                     {confirmingPayment === contributor.id ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -290,14 +292,14 @@ export default function DashboardPage() {
         )}
 
         {/* Paid Contributors */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="bg-white rounded-xl shadow-md border border-teal-100 p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-4">
             Confirmed Payments ({contributors.paid.length})
           </h2>
 
           {contributors.paid.length === 0 ? (
             <div className="text-center py-12 text-gray-500">
-              <Clock className="w-12 h-12 mx-auto mb-3 text-gray-400" />
+              <Clock className="w-12 h-12 mx-auto mb-3 text-teal-300" />
               <p>No confirmed payments yet</p>
             </div>
           ) : (
@@ -305,10 +307,10 @@ export default function DashboardPage() {
               {contributors.paid.map((contributor) => (
                 <div
                   key={contributor.id}
-                  className="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg"
+                  className="flex items-center justify-between p-4 bg-gradient-to-r from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg hover:border-teal-300 transition-colors"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center shadow-sm">
                       <CheckCircle className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -320,7 +322,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-green-600">
+                    <p className="font-bold text-teal-600">
                       ₦{contributor.amount_paid?.toLocaleString()}
                     </p>
                     <p className="text-xs text-gray-500">
