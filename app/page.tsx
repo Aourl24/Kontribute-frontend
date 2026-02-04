@@ -267,14 +267,16 @@ export default function HomePage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
                     <input type="text" name="organizer_name" value={formData.organizer_name} onChange={handleChange} placeholder="John Doe" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent" required />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                    <input type="tel" name="organizer_phone" value={formData.organizer_phone} onChange={handleChange} placeholder="08012345678" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent" required />
-                  </div>
+                  
+                   <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2"> Your Email* </label>
+                  <input type="email" name="organizer_email" value={formData.organizer_email} onChange={handleChange} placeholder="john@example.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent" required/>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email (Optional)</label>
-                  <input type="email" name="organizer_email" value={formData.organizer_email} onChange={handleChange} placeholder="john@example.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
+                
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number  (Optional) </label>
+                    <input type="tel" name="organizer_phone" value={formData.organizer_phone} onChange={handleChange} placeholder="08012345678" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
+                  </div>
                 </div>
                 
                
