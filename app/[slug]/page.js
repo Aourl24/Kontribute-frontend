@@ -20,11 +20,18 @@ export default function CollectionPage() {
     name: '',
     phone: '',
     email: '',
+    amount:""
   });
 
   useEffect(() => {
     fetchCollection();
   }, [slug]);
+  
+  // useEffect(()=>{
+  //   if (collection){
+  //   !collection.amount_per_person && setFormData({...formData,amount:""})}
+    
+  // },[collection])
 
   const fetchCollection = async () => {
     try {
@@ -43,6 +50,7 @@ export default function CollectionPage() {
       setLoading(false);
     }
   };
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -263,7 +271,8 @@ export default function CollectionPage() {
               <div className="flex items-center justify-between">
                 <span className="text-gray-700 font-medium">Your contribution amount:</span>
                 <span className="text-2xl font-bold text-emerald-600">
-                  ₦{collection.amount_per_person?.toLocaleString()}
+                  ₦{ collection.amount_per_person ? collection.amount_per_person?.toLocaleString()
+                  :formData.amount}
                 </span>
               </div>
             </div>
@@ -298,6 +307,23 @@ export default function CollectionPage() {
                   required
                 />
               </div>
+              
+              {
+                !collection.amount_per_person &&  <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Amount to be paid *
+                </label>
+                <input
+                  type="number"
+                  name="amount"
+                  value={formData.amount}
+                  onChange={handleChange}
+                  placeholder="08012345678"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                  required
+                />
+              </div>
+              }
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
