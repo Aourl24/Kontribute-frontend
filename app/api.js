@@ -1,7 +1,7 @@
 import axios from 'axios';
-//http://127.0.0.1:8000/api
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://10.85.70.92:8000/api';
+//'http://10.85.70.92:8000/api';
+const backend_url = "http://127.0.0.1:8000/api"
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || backend_url;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -53,5 +53,13 @@ export const getReceipt = async (contributorId) => {
   const response = await api.get(`/receipts/${contributorId}/`);
   return response.data;
 };
+
+/**
+ * Make an AUTOMATIC contribution (Paystack payment)
+ */
+export const makeAutomaticContribution = async (slug, data) => {
+    const response = await api.post(`/collections/${slug}/contribute-auto/`,data);
+    return response.data;
+  } 
 
 export default api;
