@@ -27,84 +27,6 @@ import {
 
 export default function LandingPage() {
   const router = useRouter();
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [creating, setCreating] = useState(false);
-  
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    type: 'automatic',
-    amount_per_person: '',
-    number_of_people: '',
-    organizer_name: '',
-    organizer_phone: '',
-    organizer_email: '',
-    organizer_bank_name: '',
-    organizer_account_number: '',
-    organizer_account_name: '',
-    deadline: ''
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setCreating(true);
-
-    try {
-      // Prepare data
-      const collectionData = {
-        title: formData.title,
-        description: formData.description,
-        type: formData.type,
-        organizer_name: formData.organizer_name,
-        organizer_phone: formData.organizer_phone,
-        organizer_email: formData.organizer_email,
-      };
-
-      // Add optional fields
-      if (formData.amount_per_person) {
-        collectionData.amount_per_person = parseFloat(formData.amount_per_person);
-      }
-      if (formData.number_of_people) {
-        collectionData.number_of_people = parseInt(formData.number_of_people);
-      }
-      if (formData.deadline) {
-        collectionData.deadline = new Date(formData.deadline).toISOString();
-      }
-
-      // Add bank details for manual payments
-      if (formData.type === 'manual') {
-        collectionData.organizer_bank_name = formData.organizer_bank_name;
-        collectionData.organizer_account_number = formData.organizer_account_number;
-        collectionData.organizer_account_name = formData.organizer_account_name;
-      }
-
-      const response = await createCollection(collectionData);
-
-      if (response.status === 'success') {
-        toast.success('Collection created successfully!');
-        // Redirect to collection page
-        setTimeout(() => {
-          router.push(`/${response.data.slug}`);
-        }, 1000);
-      } else {
-        toast.error(response.message || 'Failed to create collection');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred. Please try again.');
-    } finally {
-      setCreating(false);
-    }
-  };
-
   const stats = [
     { number: '14 Million+', label: 'Collections Created' },
     { number: '₦5.2B+', label: 'Money Collected' },
@@ -543,13 +465,12 @@ export default function LandingPage() {
           <p className="text-xl text-emerald-50 mb-10">
             Join thousands of Nigerians making group collections effortless
           </p>
-          <button
-            onClick={() => setShowCreateForm(true)}
+          <Link href={"/collection"}
             className="bg-white text-emerald-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl inline-flex items-center space-x-2"
           >
             <span>Create Your First Collection</span>
             <ArrowRight className="w-5 h-5" />
-          </button>
+          </Link>
           <p className="text-emerald-50 mt-6 text-sm">No signup required • Free to start</p>
         </div>
       </section>
@@ -602,28 +523,6 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-
-      {/* Create Collection Modal */}
-      {showCreateForm && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-2xl w-full my-8 shadow-2xl">
-            <div className="p-6 border-b border-gray-100">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-900">Create Collection</h3>
-                <Link href={"/collection"}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            
-          </div>
-        </div>
-      )}
     </div>
   );
 }
