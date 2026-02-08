@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
        <head>
-        <script src="/tailwind.cdn.js"></script>
+        <script src="/tailwind.cdn.js" async></script>
       </head>
       <body className={inter.className}>{children}</body>
     </html>
