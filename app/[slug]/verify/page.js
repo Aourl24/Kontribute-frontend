@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { verifyPayment } from '../api';
+import { verifyPayment } from '../../api';
 import { Loader2, CheckCircle, XCircle, ArrowRight } from 'lucide-react';
 
 export default function PaymentVerificationPage() {

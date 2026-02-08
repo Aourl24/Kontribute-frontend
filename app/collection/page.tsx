@@ -22,8 +22,8 @@ export default function CreateCollectionPage() {
     organizer_account_number: '',
     organizer_account_name: '',
     total_amount: '',
-    collection_type: 'fixed',
-    payment_method: 'automated',
+    collection_type: 'flexible',
+    payment_method: 'manual',
   });
 
   const handleChange = (e) => {
@@ -89,7 +89,7 @@ export default function CreateCollectionPage() {
       return { total: 0, fee: 0, youReceive: 0 };
     }
     const total = parseFloat(formData.amount_per_person) * parseInt(formData.number_of_people);
-    const fee = formData.payment_method === 'automated' ? total * 0.025 : 0;
+    const fee = formData.payment_method === 'automated' ? total * 0.005 : 0;
     return { total, fee, youReceive: total - fee };
   };
 
@@ -148,35 +148,6 @@ export default function CreateCollectionPage() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <button 
                     type="button" 
-                    onClick={() => setFormData({...formData, collection_type: 'fixed'})} 
-                    className={`p-5 rounded-xl border-2 text-left transition-all ${
-                      formData.collection_type === 'fixed' 
-                        ? 'border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100' 
-                        : 'border-gray-200 bg-white hover:border-emerald-200 hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                        formData.collection_type === 'fixed' ? 'bg-emerald-100' : 'bg-gray-100'
-                      }`}>
-                        <DollarSign className={`w-6 h-6 ${
-                          formData.collection_type === 'fixed' ? 'text-emerald-600' : 'text-gray-600'
-                        }`} />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-gray-900">Fixed Amount</h4>
-                          {formData.collection_type === 'fixed' && (
-                            <CheckCircle className="w-5 h-5 text-emerald-600" />
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1">Everyone pays the same amount</p>
-                      </div>
-                    </div>
-                  </button>
-
-                  <button 
-                    type="button" 
                     onClick={() => setFormData({...formData, collection_type: 'flexible'})} 
                     className={`p-5 rounded-xl border-2 text-left transition-all ${
                       formData.collection_type === 'flexible' 
@@ -200,6 +171,35 @@ export default function CreateCollectionPage() {
                           )}
                         </div>
                         <p className="text-sm text-gray-600 mt-1">Contributors choose their amount</p>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button 
+                    type="button" 
+                    onClick={() => setFormData({...formData, collection_type: 'fixed'})} 
+                    className={`p-5 rounded-xl border-2 text-left transition-all ${
+                      formData.collection_type === 'fixed' 
+                        ? 'border-emerald-500 bg-emerald-50 ring-2 ring-emerald-100' 
+                        : 'border-gray-200 bg-white hover:border-emerald-200 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-start space-x-3">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                        formData.collection_type === 'fixed' ? 'bg-emerald-100' : 'bg-gray-100'
+                      }`}>
+                        <DollarSign className={`w-6 h-6 ${
+                          formData.collection_type === 'fixed' ? 'text-emerald-600' : 'text-gray-600'
+                        }`} />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-semibold text-gray-900">Fixed Amount</h4>
+                          {formData.collection_type === 'fixed' && (
+                            <CheckCircle className="w-5 h-5 text-emerald-600" />
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">Everyone pays the same amount</p>
                       </div>
                     </div>
                   </button>
@@ -238,7 +238,7 @@ export default function CreateCollectionPage() {
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2">
                             <h4 className="font-semibold text-gray-900">Automatic</h4>
-                            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">
+                            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full hidden">
                               Recommended
                             </span>
                           </div>
@@ -247,7 +247,7 @@ export default function CreateCollectionPage() {
                           )}
                         </div>
                         <p className="text-sm text-gray-600 mb-2">Instant payment confirmation</p>
-                        <p className="text-xs font-medium text-emerald-700">2.5% platform fee</p>
+                        <p className="text-xs font-medium text-emerald-700">0.5% platform fee</p>
                       </div>
                     </div>
                   </button>
@@ -301,7 +301,7 @@ export default function CreateCollectionPage() {
                             <li>Contributors pay with cards, bank transfer, or USSD</li>
                             <li>Instant automatic confirmation via Paystack</li>
                             <li>Withdraw to your bank anytime</li>
-                            <li>2.5% fee covers secure processing</li>
+                            <li>0.5% fee covers secure processing</li>
                           </ul>
                         </div>
                       ) : (
