@@ -82,26 +82,6 @@ export const verifyPayment = async (reference) => {
   }
 };
 
-/**
- * Confirm manual payment (by organizer)
- */
-export const confirmPayment = async (slug, confirmationData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/collections/${slug}/confirm-payment/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(confirmationData),
-    });
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error confirming payment:', error);
-    throw error;
-  }
-};
 
 
 export default api;
