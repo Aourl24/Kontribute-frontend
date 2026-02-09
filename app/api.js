@@ -1,6 +1,7 @@
 import axios from 'axios';
 //'http://10.85.70.92:8000/api';
-const backend_url = "http://127.0.0.1:8000/api"
+// const backend_url = "http://127.0.0.1:8000/api"
+const backend_url = "https://kontribute.pythonanywhere.com/"
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || backend_url;
 
 const api = axios.create({
